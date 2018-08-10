@@ -1,4 +1,5 @@
 function run() {
+  deleteAllRunTrigger(); //実行済みの定時実行用トリガーを削除
   var spreadsheet = SpreadsheetApp.getActiveSpreadsheet();
   var template = spreadsheet.getSheetByName("テンプレ");
   var nameStr = _generateSheetName();
@@ -48,4 +49,13 @@ function setTrigger() {
   var setTime = new Date();
   setTime.setHours(7);
   ScriptApp.newTrigger("run").timeBased().at(setTime).create();
+}
+
+function deleteAllRunTrigger() {
+  var triggers = ScriptApp.getProjectTriggers();
+  for(var i=0; i < triggers.length; i++) {
+    if (triggers[i].getHandlerFunction() == "run") {
+      ScriptApp.deleteTrigger(triggers[i]);
+    }
+  }
 }

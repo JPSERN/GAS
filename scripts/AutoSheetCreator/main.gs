@@ -30,7 +30,7 @@ function _isHoliday() {
   }
 
   //国民の祝日なら true
-  if(!_isHoliday.cacheCalendar]) {
+  if(!_isHoliday.cacheCalendar) {
     _isHoliday.cacheCalendar = CalendarApp.getCalendarById(
       "ja.japanese#holiday@group.v.calendar.google.com"
     );

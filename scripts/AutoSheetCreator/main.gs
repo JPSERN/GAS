@@ -53,9 +53,9 @@ function setTrigger() {
 
 function deleteAllRunTrigger() {
   var triggers = ScriptApp.getProjectTriggers();
-  for(var i=0; i < triggers.length; i++) {
-    if (triggers[i].getHandlerFunction() == "run") {
-      ScriptApp.deleteTrigger(triggers[i]);
+  triggers.forEach(function(trg) {
+    if (trg.getHandlerFunction() == "run") {
+      ScriptApp.deleteTrigger(trg);
     }
-  }
+  });
 }

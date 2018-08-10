@@ -42,3 +42,10 @@ function _isHoliday() {
 
   return false;
 }
+
+function setTrigger() {
+  if (_isHoliday()) return;
+  var setTime = new Date();
+  setTime.setHours(7);
+  ScriptApp.newTrigger("run").timeBased().at(setTime).create();
+}

@@ -30,9 +30,12 @@ function _isHoliday() {
   }
 
   //国民の祝日なら true
-  var calendarId = "ja.japanese#holiday@group.v.calendar.google.com";
-  var calendar = CalendarApp.getCalendarById(calendarId);
-  var todayEvents = calendar.getEventsForDay(today);
+  if(!this.cacheCalendar]) {
+    this.cacheCalendar = CalendarApp.getCalendarById(
+      "ja.japanese#holiday@group.v.calendar.google.com"
+    );
+  }
+  var todayEvents = this.cacheCalendar.getEventsForDay(today);
   if(todayEvents.length > 0){
     return true;
   }

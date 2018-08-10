@@ -19,3 +19,23 @@ function _generateSheetName() {
   var date = new Date();
   return Utilities.formatDate(date, "GMT", "M/d ") + week[date.getDay()];
 }
+
+function _isHoliday() {
+  var today = new Date();
+
+  //土日なら true
+  var weekInt = today.getDay();
+  if(weekInt <= 0 || 6 <= weekInt){
+    return true;
+  }
+
+  //国民の祝日なら true
+  var calendarId = "ja.japanese#holiday@group.v.calendar.google.com";
+  var calendar = CalendarApp.getCalendarById(calendarId);
+  var todayEvents = calendar.getEventsForDay(today);
+  if(todayEvents.length > 0){
+    return true;
+  }
+
+  return false;
+}

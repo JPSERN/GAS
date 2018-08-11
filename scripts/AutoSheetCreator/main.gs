@@ -48,6 +48,7 @@ function setTrigger() {
   deleteAllRunTrigger(); //実行済みの定時実行用トリガーを削除
   var setTime = new Date();
   setTime.setHours(7);
+  setTime.setMinutes(0);
   ScriptApp.newTrigger("run").timeBased().at(setTime).create();
 }
 

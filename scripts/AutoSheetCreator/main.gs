@@ -17,7 +17,7 @@ function run() {
 function _generateSheetName() {
   var week = ["日","月","火","水","木","金","土"];
   var date = new Date();
-  return Utilities.formatDate(date, "GMT", "M/d ") + week[date.getDay()];
+  return Utilities.formatDate(date, "Asia/Tokyo", "M/d ") + week[date.getDay()];
 }
 
 function _isHoliday() {

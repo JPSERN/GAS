@@ -1,16 +1,16 @@
 function run() {
-  var spreadsheet = SpreadsheetApp.getActiveSpreadsheet();
-  var template = spreadsheet.getSheetByName("テンプレ");
-  var nameStr = _generateSheetName();
+  var book = SpreadsheetApp.getActiveSpreadsheet();
+  var tplSheet = spreadsheet.getSheetByName("テンプレ");
+  var sheetName = _generateSheetName();
 
-  if(template == null) {
+  if(tplSheet == null) {
     return;
   }
 
-  if(spreadsheet.getSheetByName(nameStr) == null) {
-    spreadsheet.setActiveSheet(template);
-    spreadsheet.moveActiveSheet(0);
-    spreadsheet.insertSheet(nameStr, 0, {template: template});
+  if(book.getSheetByName(sheetName) == null) {
+    book.setActiveSheet(tplSheet);
+    book.moveActiveSheet(0);
+    book.insertSheet(sheetName, 0, {template: tplSheet});
   }
 }
 
@@ -45,17 +45,17 @@ function _isHoliday() {
 
 function setTrigger() {
   if (_isHoliday()) return;
-  deleteAllRunTrigger(); //実行済みの定時実行用トリガーを削除
+  deleteTriggers("run"); //実行済みの定時実行用トリガーを削除
   var setTime = new Date();
   setTime.setHours(7);
   setTime.setMinutes(0);
   ScriptApp.newTrigger("run").timeBased().at(setTime).create();
 }
 
-function deleteAllRunTrigger() {
+function deleteTriggers(target) {
   var triggers = ScriptApp.getProjectTriggers();
   triggers.forEach(function(trg) {
-    if (trg.getHandlerFunction() == "run") {
+    if (trg.getHandlerFunction() == target) {
       ScriptApp.deleteTrigger(trg);
     }
   });

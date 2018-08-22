@@ -1,6 +1,6 @@
 function run() {
   var book = SpreadsheetApp.getActiveSpreadsheet();
-  var tplSheet = spreadsheet.getSheetByName("テンプレ");
+  var tplSheet = book.getSheetByName("テンプレ");
   var sheetName = _generateSheetName();
 
   if(tplSheet == null) {
